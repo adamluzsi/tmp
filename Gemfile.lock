@@ -1,0 +1,16 @@
+PATH
+  remote: .
+  specs:
+    tmp (0.0.1.pre)
+      empty_object
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    empty_object (1.0.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  tmp!

@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.version       = File.open(File.join(File.dirname(__FILE__),"VERSION")).read.split("\n")[0].chomp.gsub(' ','')
   spec.authors       = ["Adam Luzsi"]
   spec.email         = ["adamluzsi@gmail.com"]
-  spec.description   = %q{ Parse string into obj }
-  spec.summary       = %q{ String to Obj, Duck type parser }
-  spec.homepage      = "https://github.com/adamluzsi/str2duck"
+  spec.description   = %q{ DSL for system tmp folders }
+  spec.summary       = %q{Ruby DSL for manage tmp files and make easy tmp commands / variables accross the forked processes. I'ts not made for shared memory management! it's main }
+  spec.homepage      = "https://github.com/adamluzsi/tmp"
   spec.license       = "MIT"
 
   spec.files         = TMP.class_variable_get("@@spec_files")
@@ -19,6 +19,8 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  #spec.add_dependency 'active_support'
+  spec.add_dependency 'empty_object'
+
+  %W[ rake bundler ].each{ |gem_name| spec.add_development_dependency(gem_name) }
 
 end

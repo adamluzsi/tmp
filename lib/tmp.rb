@@ -1,3 +1,8 @@
 #encoding: UTF-8
-require File.join File.dirname(__FILE__),'tmp','config'
-require File.join File.dirname(__FILE__),'tmp','support'
+
+require 'tmpdir'
+require 'empty_object'
+
+require 'tmp/config'
+require 'tmp/function'
+require 'tmp/dsl'
