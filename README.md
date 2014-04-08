@@ -42,6 +42,24 @@ you can config the folder path for custom tmp folder use case if you dont want t
     puts tmp.hello #> { hello: 'world'}
 ```
 
+### Remove tmp objects
+
+you can remove tmp objects by purge them
+
+```ruby
+    require 'tmp'
+
+    tmp.hello = { hello: 'world'}
+
+    # now it's set
+    puts tmp.hello #> { hello: 'world'}
+
+    TMP.purge!
+
+    # now it's nil
+    puts tmp.hello #> nil
+```
+
 ### TODO
 
 * make ssl encryption for the tmp files opt able

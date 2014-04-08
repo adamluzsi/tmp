@@ -58,7 +58,7 @@ module TMP
 
       end
 
-      def purge_files!
+      def purge_files
 
         Dir.glob( File.join( tmp_folder_path,'**','*' ) ).each do |file_path|
 
@@ -76,16 +76,22 @@ module TMP
     end
   end
 
-  def self.write(*args)
-    self::Support.write(*args)
-  end
+  class << self
 
-  def self.read(*args)
-    self::Support.read(*args)
-  end
+    def write(*args)
+      self::Support.write(*args)
+    end
 
-  def self.purge!
-    self::Support.purge_files!
+    def read(*args)
+      self::Support.read(*args)
+    end
+
+    def purge!
+      self::Support.purge_files
+    end
+
+    alias :purge :purge!
+
   end
 
 
