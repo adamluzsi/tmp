@@ -26,3 +26,18 @@ The main goal is to provide dsl for easy tmp files making on the filesystem
     # undefined variable
     puts tmp.sup #> nil
 ```
+
+### Config
+
+you can config the folder path for custom tmp folder use case if you dont want to use the systems default tmp folder/ your app space
+
+```ruby
+    require 'tmp'
+
+    TMP::Config.folder_path File.expand_path(File.join(File.dirname(__FILE__),'tmp_folder'))
+
+    # or you can use syntax sugar!
+    tmp.hello = { hello: 'world'}
+    # defined variable
+    puts tmp.hello #> { hello: 'world'}
+```

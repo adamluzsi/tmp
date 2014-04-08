@@ -5,7 +5,7 @@ module TMP
     def tmp_folder_path
 
       modifier= ""
-      File.join(Dir.tmpdir, ( Dir.pwd.split(File::Separator).last.to_s + modifier ))
+      ::TMP::Config.folder_path
 
     end
 
