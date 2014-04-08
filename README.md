@@ -41,3 +41,9 @@ you can config the folder path for custom tmp folder use case if you dont want t
     # defined variable
     puts tmp.hello #> { hello: 'world'}
 ```
+
+### TODO
+
+* make ssl encryption for the tmp files opt able
+* implement more awesome trick
+* find contributors
