@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.version       = File.open(File.join(File.dirname(__FILE__),"VERSION")).read.split("\n")[0].chomp.gsub(' ','')
   spec.authors       = ["Adam Luzsi"]
   spec.email         = ["adamluzsi@gmail.com"]
-  spec.description   = %q{ DSL for system tmp folders }
-  spec.summary       = %q{Ruby DSL for manage tmp files and make easy tmp commands / variables accross the forked processes. I'ts not made for shared memory management! it's main }
+  spec.description   = %q{ Ruby DSL for manage tmp files and make easy tmp commands / variables to file system. Sometimes usefull for forked processes. I'ts not made for shared memory management! The main goal is to provide dsl for easy tmp files making on the filesystem }
+  spec.summary       = %q{ DSL for system temporary folder to save objects }
   spec.homepage      = "https://github.com/adamluzsi/tmp"
   spec.license       = "MIT"
 
