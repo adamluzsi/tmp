@@ -3,7 +3,6 @@ module TMP
   module Config
     class << self
 
-
       def default_folder_path
         File.join( Dir.tmpdir, ( Dir.pwd.split(File::Separator).last.to_s  ) )
       end
@@ -25,7 +24,11 @@ module TMP
 
       end
 
-
     end
   end
+
+  def self.folder_path obj
+    self::Config.folder_path(obj)
+  end
+
 end

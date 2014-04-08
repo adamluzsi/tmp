@@ -12,3 +12,7 @@ puts tmp.hello #> { hello: 'world'}
 # undefined variable
 puts tmp.sup #> nil
 
+TMP.purge!
+
+# call after tmp is purged
+puts tmp.hello #> nil
