@@ -6,3 +6,5 @@ require 'empty_object'
 require 'tmp/config'
 require 'tmp/function'
 require 'tmp/dsl'
+
+require 'tmp/instance'

@@ -60,6 +60,24 @@ you can remove tmp objects by purge them
     puts tmp.hello #> nil
 ```
 
+### Instance use case
+
+if you want use as an instance for example for your very own module, than you can do this
+
+```ruby
+
+    require 'tmp'
+
+    # set the folder path at initialize
+    tmp_instance= TMP::Instance.new( File.expand_path(File.join(File.dirname(__FILE__),'tmp_folder')) )
+
+    tmp_instance.write :test, {hello: 'world'}
+
+    puts tmp_instance.read :test
+    puts TMP.read(:test)  #> must be nil
+
+```
+
 ### TODO
 
 * make ssl encryption for the tmp files opt able
