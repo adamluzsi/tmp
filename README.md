@@ -34,12 +34,15 @@ you can config the folder path for custom tmp folder use case if you dont want t
 ```ruby
     require 'tmp'
 
-    TMP::Config.folder_path File.expand_path(File.join(File.dirname(__FILE__),'tmp_folder'))
+    # set folder path if we dont want to use
+    # the default system_tmp/our_project_folder_name/
+    TMP.folder_path "/super/awsom/path/to/my/wished/folder"
 
-    # or you can use syntax sugar!
-    tmp.hello = { hello: 'world'}
-    # defined variable
-    puts tmp.hello #> { hello: 'world'}
+    # to check what is the default folder path just use this
+    TMP.default_folder_path #> return default path
+
+    # to check the current path use this
+    TMP.folder_path #> return the current path
 ```
 
 ### Remove tmp objects
