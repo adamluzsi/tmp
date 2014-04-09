@@ -1,18 +1,23 @@
 #encoding: UTF-8
 module TMP
 
-  class DSL < ::EmptyObject
-    class << self
-      def method_missing(method, *args)
+  module DSLCore
 
-        if method.to_s.include?('=')
-          ::TMP.write method.to_s.gsub('=',''), args.first
-        else
-          ::TMP.read(method)
-        end
+    def method_missing( method, *args )
+      @class_name ||= ::TMP
 
+      if method.to_s.include?('=')
+        @class_name.write( method.to_s.gsub('=',''), args.first )
+      else
+        @class_name.read( method )
       end
+
     end
+
+  end
+
+  class DSL < ::EmptyObject
+    extend DSLCore
   end
 
   module SyntaxSugar

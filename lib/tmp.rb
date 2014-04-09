@@ -3,8 +3,6 @@
 require 'tmpdir'
 require 'empty_object'
 
-require 'tmp/config'
-require 'tmp/function'
+require 'tmp/core'
 require 'tmp/dsl'
-
-require 'tmp/instance'
+require 'tmp/init'

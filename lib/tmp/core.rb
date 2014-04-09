@@ -1,14 +1,30 @@
 #encoding: UTF-8
 module TMP
 
-  module SupportCore
+  module CORE
 
-    def tmp_folder_path obj=nil
-      @tmp_folder_path ||= obj
-      @tmp_folder_path || ::TMP::Config.folder_path
+    def default_folder_path
+      File.join( Dir.tmpdir, ( Dir.pwd.split(File::Separator).last.to_s  ) )
     end
 
-    alias :folder_path :tmp_folder_path
+    @folder_path= nil
+    def folder_path path_string= nil
+
+      unless path_string.nil?
+
+        unless path_string.class <= String
+          raise ArgumentError,"invalid path class, must be string like"
+        end
+
+        @folder_path = File.absolute_path(path_string)
+
+      end
+
+      @folder_path || default_folder_path
+
+    end
+
+    alias :tmp_folder_path :folder_path
 
     def tmp_folder_init
 
@@ -19,18 +35,6 @@ module TMP
 
       rescue Errno::EEXIST
         return false
-      end
-
-    end
-
-    def read_buffer path
-
-      comm_line= File.open(path,"r")
-
-      read_buffer = ::Thread.new do
-        while !comm_line.eof?
-          @value = ::Marshal.load( comm_line )
-        end
       end
 
     end
@@ -70,29 +74,11 @@ module TMP
 
     end
 
-  end
-
-  module Support
-    extend SupportCore
-  end
-
-  class << self
-
-    def write(*args)
-      self::Support.write(*args)
-    end
-
-    def read(*args)
-      self::Support.read(*args)
-    end
-
-    def purge!
-      self::Support.purge_files
-    end
-
-    alias :purge :purge!
+    alias :purge! :purge_files
+    alias :purge  :purge_files
 
   end
 
+  extend CORE
 
 end

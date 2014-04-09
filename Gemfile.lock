@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tmp (1.2.0)
+    tmp (1.2.1)
       empty_object
 
 GEM
