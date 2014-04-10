@@ -1,4 +1,4 @@
-#/examples/tmp_folder
+/examples/tmp_folder
 
 *.gem
 *.rbc
