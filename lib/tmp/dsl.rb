@@ -1,23 +1,54 @@
 #encoding: UTF-8
 module TMP
 
+
   module DSLCore
 
-    def method_missing( method, *args )
-      @class_name ||= ::TMP
+    def target_obj obj=nil
+      @target_obj= obj || ::TMP
+    end
+
+    def method_missing( method, *args, &block )
+
+      @target_obj     = ::TMP
+      @target_methods = [:write,:read,:file]
 
       if method.to_s.include?('=')
-        @class_name.write( method.to_s.gsub('=',''), args.first )
+        target_obj.__send__ @target_methods[0], method.to_s.gsub('=',''), args.first
       else
-        @class_name.read( method )
+
+        unless block.nil?
+
+          if File.exist? File.join( target_obj.folder_path, method.to_s )
+            args[0] ||= "r+"
+          else
+            args[0] ||= "w+"
+          end
+
+          File.open( File.join( target_obj.folder_path, method.to_s ), args[0] ,&block)
+
+        else
+
+          begin
+            target_obj.__send__ @target_methods[1], method
+          rescue TypeError
+            File.open(File.join( target_obj.folder_path, method.to_s ),"r").read
+          end
+
+        end
+
       end
 
     end
 
   end
 
-  class DSL < ::EmptyObject
+  module DSL
+
+    extend ObjectExt
     extend DSLCore
+    privatize
+
   end
 
   module SyntaxSugar
@@ -25,6 +56,8 @@ module TMP
     def tmp
       ::TMP::DSL
     end
+
+    alias :temporally :tmp
 
   end
 

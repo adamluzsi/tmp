@@ -3,8 +3,24 @@ module TMP
 
   module CORE
 
+    def project_name name_string= nil
+
+      unless name_string.nil?
+
+        unless name_string.class <= String
+          raise ArgumentError,"invalid name string"
+        end
+
+        @project_name = name_string
+
+      end
+
+      @project_name || Dir.pwd.split(File::Separator).last.to_s
+
+    end
+
     def default_folder_path
-      File.join( Dir.tmpdir, ( Dir.pwd.split(File::Separator).last.to_s  ) )
+      File.join( Dir.tmpdir , project_name )
     end
 
     @folder_path= nil
@@ -38,6 +54,8 @@ module TMP
       end
 
     end
+
+    alias :folder_init :tmp_folder_init
 
     def write variable_name, data_object
 

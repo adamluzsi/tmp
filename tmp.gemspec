@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.version       = File.open(File.join(File.dirname(__FILE__),"VERSION")).read.split("\n")[0].chomp.gsub(' ','')
   spec.authors       = ["Adam Luzsi"]
   spec.email         = ["adamluzsi@gmail.com"]
-  spec.description   = %q{ Ruby DSL for manage tmp files and make easy tmp commands / variables to file system. Sometimes usefull for forked processes. I'ts not made for shared memory management! The main goal is to provide dsl for easy tmp files making on the filesystem }
-  spec.summary       = %q{ DSL for system temporary folder to save objects }
+  spec.description   = %q{ DSL for temporally files read/write in the object oriented way (system tmp). Manage tmp files in the super easy way! This dsl let you have simply way to commands and create variables on file system by default in the actual systems (cross platform) tmp folder. Sometimes it can be useful for multi processing (forked processes), but the main goal is not made for shared memory management! The goal is to provide dsl for easy tmp files making on the filesystem in the object oriented way (real objects and not simply strings). By default i's always IO work and not memory, everything you save with this will be IO command and not memory }
+  spec.summary       = %q{ DSL for temporally files read/write in the object oriented way (system tmp) }
   spec.homepage      = "https://github.com/adamluzsi/tmp"
   spec.license       = "MIT"
 
@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency 'empty_object'
+  #spec.add_dependency 'empty_object'
 
   %W[ rake bundler ].each{ |gem_name| spec.add_development_dependency(gem_name) }
 

@@ -1,18 +1,18 @@
-require 'tmp'
+exp_path= File.expand_path( File.join( File.dirname(__FILE__), '..','lib','tmp'))
 
-TMP.write :test, {hello: 'world'}
-puts TMP.read(:test)
+require 'tmpdir'
 
-# or you can use syntax sugar!
-tmp.hello = { hello: 'world'}
+%W[
+  core.rb
+  sup.rb
 
-# defined variable
-puts tmp.hello #> { hello: 'world'}
+  dsl.rb
+  init.rb
+].each{ |p| require File.join(exp_path,p) }
 
-# undefined variable
-puts tmp.sup #> nil
 
-TMP.purge!
+tmp_folder= TMP.new File.expand_path( File.join( File.dirname(__FILE__),'tmp_folder'))
 
-# call after tmp is purged
-puts tmp.hello #> nil
+puts tmp_folder.tmp_class_instance_object #folder_path
+
+#tmp_folder.test= 123

@@ -1,30 +1,42 @@
-tmp
+TMP
 ===
 
-Ruby DSL for manage tmp files and make easy
-tmp commands / variables to file system
-Sometimes usefull for forked processes.
+Ruby DSL for temporally files read/write in the object oriented way (system tmp).
+Manage tmp files in the super easy way!
 
-I'ts not made for shared memory management!
-The main goal is to provide dsl for easy tmp files making on the filesystem
+This dsl let you have simply way to commands and create variables on file system,
+by default in the actual systems (cross platform) tmp folder.
+
+Sometimes it can be useful for multi processing (forked processes),
+but the main goal is not made for shared memory management!
+The goal is to provide dsl for easy tmp files making on the filesystem in the object oriented way
+(real objects and not simply strings)
+
+By default i's always IO work and not memory,
+everything you save with this will be IO command and not memory management
 
 
 ### Example
 
+In the Examples i will use most likely the 'tmp' name, what is a syntax sugar
+The real object(module) being called all the time is the TMP::DSL
+The DSL will make easy the job on you but you can use the default methods alike:
+
+* TMP.write( file_name, object )
+* TMP.read( file_name ) #> object
+
 ```ruby
+
     require 'tmp'
 
-    TMP.write :test, {hello: 'world'}
-    puts TMP.read(:test)
-
-    # or you can use syntax sugar!
     tmp.hello = { hello: 'world'}
 
     # defined variable
-    puts tmp.hello #> { hello: 'world'}
+    tmp.hello #> { hello: 'world'}
 
     # undefined variable
-    puts tmp.sup #> nil
+    tmp.sup #> nil
+
 ```
 
 ### Config
@@ -32,17 +44,19 @@ The main goal is to provide dsl for easy tmp files making on the filesystem
 you can config the folder path for custom tmp folder use case if you dont want to use the systems default tmp folder/ your app space
 
 ```ruby
+
     require 'tmp'
 
     # set folder path if we dont want to use
     # the default system_tmp/our_project_folder_name/
-    TMP.folder_path "/super/awsom/path/to/my/wished/folder"
+    TMP.folder_path "/super/awesome/path/to/my/wished/folder"
 
     # to check what is the default folder path just use this
     TMP.default_folder_path #> return default path
 
     # to check the current path use this
     TMP.folder_path #> return the current path
+
 ```
 
 ### Remove tmp objects
@@ -50,20 +64,22 @@ you can config the folder path for custom tmp folder use case if you dont want t
 you can remove tmp objects by purge them
 
 ```ruby
+
     require 'tmp'
 
     tmp.hello = { hello: 'world'}
 
     # now it's set
-    puts tmp.hello #> { hello: 'world'}
+    tmp.hello #> { hello: 'world'} -> hash obj
 
     TMP.purge!
 
     # now it's nil
-    puts tmp.hello #> nil
+    tmp.hello #> nil
+
 ```
 
-### Instance use case
+### Instance use case for modules or separated tmp folders
 
 if you want use as an instance for example for your very own module, than you can do this
 
@@ -84,8 +100,85 @@ if you want use as an instance for example for your very own module, than you ca
 
 ```
 
+### Blocks for file commands
+
+using blocks is nothing like cupcake in Ruby, and just alike in this dsl
+
+
+```ruby
+
+    require 'tmp'
+
+    # using blocks is simply as this
+    tmp.some_file_name do |file|
+      file.write Random.rand(100...1000)
+    end
+
+    # reopen the new file is also simple
+    tmp.some_file_name do |file|
+
+      while line = file.gets
+        puts line
+      end
+
+      file.write Random.rand(100...1000)
+
+    end
+
+    # you can set the file mod if you like, by default it's based on file e
+    tmp.some_file_name "w+" do |file|
+
+      while line = file.gets
+        puts line
+      end
+      # totaly nothing writed out to console because the "w+"
+
+      file.write "hello world!"
+
+    end
+
+    puts tmp.some_file_name #> it's a string from the file we made
+
+```
+
+### File mod cheat sheet
+
+```ruby
+
+    #
+    # Mode |  Meaning
+    # -----+--------------------------------------------------------
+    # "r"  |  Read-only, starts at beginning of file  (default mode).
+    # -----+--------------------------------------------------------
+    # "r+" |  Read-write, starts at beginning of file.
+    # -----+--------------------------------------------------------
+    # "w"  |  Write-only, truncates existing file
+    #      |  to zero length or creates a new file for writing.
+    # -----+--------------------------------------------------------
+    # "w+" |  Read-write, truncates existing file to zero length
+    #      |  or creates a new file for reading and writing.
+    #     -----+--------------------------------------------------------
+    # "a"  |  Write-only, starts at end of file if file exists,
+    #      |  otherwise creates a new file for writing.
+    # -----+--------------------------------------------------------
+    # "a+" |  Read-write, starts at end of file if file exists,
+    #      |  otherwise creates a new file for reading and
+    #      |  writing.
+    # -----+--------------------------------------------------------
+    #  "b" |  Binary file mode (may appear with
+    #      |  any of the key letters listed above).
+    #      |  Suppresses EOL <-> CRLF conversion on Windows. And
+    #      |  sets external encoding to ASCII-8BIT unless explicitly
+    #      |  specified.
+    # -----+--------------------------------------------------------
+    #  "t" |  Text file mode (may appear with
+    #      |  any of the key letters listed above except "b").
+    #
+
+```
+
 ### TODO
 
-* make ssl encryption for the tmp files opt able
+* make ssl encryption or chmod persm change for the tmp files protection as options
 * implement more awesome trick
 * find contributors
