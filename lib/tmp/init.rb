@@ -22,13 +22,14 @@ module TMP
     extend ObjectExt
     include DSLCore
 
+    def initialize path_string
+      target_obj InstanceCore.new( path_string )
+    end
+
     privatize t: 'instance'
 
     public
 
-    def initialize path_string
-      target_obj InstanceCore.new( path_string )
-    end
 
     def tmp_class_instance_object
       target_obj

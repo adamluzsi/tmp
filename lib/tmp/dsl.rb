@@ -5,12 +5,17 @@ module TMP
   module DSLCore
 
     def target_obj obj=nil
-      @target_obj= obj || ::TMP
+
+      unless obj.nil?
+        @target_obj= obj
+      end
+
+      @target_obj || ::TMP
+
     end
 
     def method_missing( method, *args, &block )
 
-      @target_obj     = ::TMP
       @target_methods = [:write,:read,:file]
 
       if method.to_s.include?('=')
