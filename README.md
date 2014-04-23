@@ -29,6 +29,7 @@ The DSL will make easy the job on you but you can use the default methods alike:
 
     require 'tmp'
 
+    #> you can use the __TMP__ alias as well
     tmp.hello = { hello: 'world'}
 
     # defined variable
