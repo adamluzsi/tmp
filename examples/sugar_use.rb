@@ -6,10 +6,6 @@ puts TMP.read(:test2)
 #or you can use syntax sugar!
 tmp.hello= { hello: 'world'}
 
-tmp.hello do |hello|
-  puts 'world'
-end
-
 # defined variable
 puts tmp.hello #> { hello: 'world'}
 
