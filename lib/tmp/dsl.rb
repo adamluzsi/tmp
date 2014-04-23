@@ -1,15 +1,11 @@
 #encoding: UTF-8
 module TMP
 
-
   module DSLCore
 
     def target_obj obj=nil
 
-      unless obj.nil?
-        @target_obj= obj
-      end
-
+      @target_obj= obj unless obj.nil?
       @target_obj || ::TMP
 
     end
@@ -18,8 +14,9 @@ module TMP
 
       @target_methods = [:write,:read,:file]
 
-      if method.to_s.include?('=')
-        target_obj.__send__ @target_methods[0], method.to_s.gsub('=',''), args.first
+      if method.to_s.reverse[0] == '='
+        target_obj.__send__ @target_methods[0], method.to_s.reverse.sub('=','').reverse, args.first
+        return args.first
       else
 
         unless block.nil?
@@ -62,8 +59,8 @@ module TMP
       ::TMP::DSL
     end
 
-    alias :temporally :tmp
     alias :__TMP__    :tmp
+    alias :__tmp__    :tmp
 
   end
 
