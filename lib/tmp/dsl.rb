@@ -63,6 +63,7 @@ module TMP
     end
 
     alias :temporally :tmp
+    alias :__TMP__    :tmp
 
   end
 
