@@ -30,7 +30,7 @@ module TMP
     end
 
     @folder_path= nil
-    def folder_path path_string= nil
+    def tmp_folder_path path_string= nil
 
       unless path_string.nil?
 
@@ -46,7 +46,7 @@ module TMP
 
     end
 
-    alias :tmp_folder_path :folder_path
+    alias :folder_path :tmp_folder_path
 
     def tmp_folder_init
 

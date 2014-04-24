@@ -80,15 +80,14 @@ you can remove tmp objects by purge them
 
     require 'tmp'
 
-    tmp.hello = { hello: 'world'}
+    __tmp__.hello = { hello: 'world'}
 
-    # now it's set
-    tmp.hello #> { hello: 'world'} -> hash obj
+    __tmp__.hello #> { hello: 'world'} -> hash obj
 
     TMP.purge!
 
     # now it's nil
-    tmp.hello #> nil
+    __tmp__.hello #> nil
 
 ```
 
@@ -99,7 +98,6 @@ if you want use as an instance for example for your very own module, than you ca
 ```ruby
 
     require 'tmp'
-
 
     tmp_instance= TMP.new( File.expand_path(File.join(File.dirname(__FILE__),'tmp_folder')) )
 
@@ -118,7 +116,7 @@ if you want use as an instance for example for your very own module, than you ca
     tmp_instance.tmp_class_instance_object.folder_path
 
     # Remember this instance use different folder thant the main TMP::DSL
-    tmp.test.inspect  #> nil, because it was never used before
+    __tmp__.test.inspect  #> nil, because it was never used before
                       #> the tmp method is same like invoke the TMP::DSL module
 
 
@@ -134,12 +132,12 @@ using blocks is nothing like cupcake in Ruby, and just alike in this dsl
     require 'tmp'
 
     # using blocks is simply as this
-    tmp.some_file_name do |file|
+    __tmp__.some_file_name do |file|
       file.write Random.rand(100...1000)
     end
 
     # reopen the new file is also simple
-    tmp.some_file_name do |file|
+    __tmp__.some_file_name do |file|
 
       while line = file.gets
         puts line
@@ -150,7 +148,7 @@ using blocks is nothing like cupcake in Ruby, and just alike in this dsl
     end
 
     # you can set the file mod if you like, by default it's based on file e
-    tmp.some_file_name "w+" do |file|
+    __tmp__.some_file_name "w+" do |file|
 
       while line = file.gets
         puts line
@@ -161,7 +159,7 @@ using blocks is nothing like cupcake in Ruby, and just alike in this dsl
 
     end
 
-    puts tmp.some_file_name #> it's a string from the file we made
+    puts __tmp__.some_file_name #> it's a string from the file we made
 
 ```
 
@@ -176,9 +174,9 @@ using blocks is nothing like cupcake in Ruby, and just alike in this dsl
 
     __tmp__.default_folder_path     #> path to the default tmp folder
 
-    __tmp__.folder_path             #> path to the now used tmp folder
+    __tmp__.tmp_folder_path         #> path to the now used tmp folder
                                     #> it is resettable by passing a string to the method
-                                    #> alias: tmp_folder_path
+                                    #> alias: folder_path
 
 ```
 
