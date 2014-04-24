@@ -74,8 +74,23 @@ module TMP
       end
 
       File.open( File.join(tmp_folder_path,variable_name.to_s) ,"r") do |file|
-        return ::Marshal.load file.read
+        begin
+          return ::Marshal.load file.read
+        rescue
+          return file.read
+        end
       end
+
+    end
+
+    def path variable_name
+
+      tmp_folder_init
+      path_to_file= File.join(tmp_folder_path,variable_name.to_s)
+      unless File.exist?(path_to_file)
+        File.open( path_to_file ,"w")
+      end
+      return path_to_file
 
     end
 

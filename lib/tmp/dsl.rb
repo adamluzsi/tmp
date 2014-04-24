@@ -12,10 +12,8 @@ module TMP
 
     def method_missing( method, *args, &block )
 
-      @target_methods = [:write,:read,:file]
-
       if method.to_s.reverse[0] == '='
-        target_obj.__send__ @target_methods[0], method.to_s.reverse.sub('=','').reverse, args.first
+        target_obj.__send__ :write, method.to_s.reverse.sub('=','').reverse, args.first
         return args.first
       else
 
@@ -31,11 +29,12 @@ module TMP
 
         else
 
-          begin
-            target_obj.__send__ @target_methods[1], method
-          rescue TypeError
-            File.open(File.join( target_obj.folder_path, method.to_s ),"r").read
+          if method =~ /^\w+__path__$/
+            return target_obj.__send__ :path, method.to_s.sub!( /__path__$/,"" )
+          else
+            return target_obj.__send__ :read, method
           end
+
 
         end
 

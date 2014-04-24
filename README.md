@@ -60,6 +60,14 @@ you can config the folder path for custom tmp folder use case if you dont want t
 
 ```
 
+### Get file path for the tmp object
+
+```ruby
+
+
+
+```
+
 ### Remove tmp objects
 
 you can remove tmp objects by purge them
