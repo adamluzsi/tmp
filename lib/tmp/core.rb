@@ -19,8 +19,14 @@ module TMP
 
     end
 
+    alias :project_folder :project_name
+
+    def tmpdir
+      ::Dir.tmpdir
+    end
+
     def default_folder_path
-      File.join( Dir.tmpdir , project_name )
+      File.join( tmpdir , project_name )
     end
 
     @folder_path= nil
@@ -103,7 +109,7 @@ module TMP
       tmp_folder_init
       path_to_file= File.join(tmp_folder_path,variable_name.to_s)
       unless File.exist?(path_to_file)
-        File.open( path_to_file ,"w")
+        File.open( path_to_file ,"w") {|f| f.write(""); f.close }
       end
       return path_to_file
 

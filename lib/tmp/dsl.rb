@@ -49,12 +49,13 @@ module TMP
 
   module SyntaxSugar
 
-    def tmp
+    def __tmp__
       ::TMP::DSL
     end
 
-    alias :__TMP__    :tmp
-    alias :__tmp__    :tmp
+    alias :__TMP__  :__tmp__
+
+    alias :tmp      :__tmp__
 
   end
 

@@ -165,6 +165,23 @@ using blocks is nothing like cupcake in Ruby, and just alike in this dsl
 
 ```
 
+### Miscs
+
+```ruby
+
+    __tmp__.tmpdir          #> system temp folder
+
+    __tmp__.project_folder  #> folder name where the project is
+                            #> alias: project_name
+
+    __tmp__.default_folder_path     #> path to the default tmp folder
+
+    __tmp__.folder_path             #> path to the now used tmp folder
+                                    #> it is resettable by passing a string to the method
+                                    #> alias: tmp_folder_path
+
+```
+
 ### File mod cheat sheet
 
 ```ruby
