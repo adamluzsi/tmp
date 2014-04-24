@@ -67,18 +67,33 @@ module TMP
 
     end
 
+    def block variable_name, *args, &block_obj
+
+      if File.exist? File.join( tmp_folder_path,variable_name.to_s )
+        args[0] ||= "r+"
+      else
+        args[0] ||= "w+"
+      end
+
+      return File.open( File.join( tmp_folder_path,variable_name.to_s ), args[0], &block_obj)
+
+    end
+
     def read variable_name
 
-      unless File.exist?(File.join(tmp_folder_path,variable_name.to_s))
+      unless File.exist?(File.join( tmp_folder_path,variable_name.to_s))
         return nil
       end
 
-      File.open( File.join(tmp_folder_path,variable_name.to_s) ,"r") do |file|
+      File.open( File.join( tmp_folder_path,variable_name.to_s ) ,"r+") do |file|
+
+        var= file.read
         begin
-          return ::Marshal.load file.read
+          return ::Marshal.load var
         rescue
-          return file.read
+          return var
         end
+
       end
 
     end

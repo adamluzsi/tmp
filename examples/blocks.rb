@@ -1,31 +1,38 @@
 require 'tmp'
 
+tmp.purge!
 # using blocks is simply as this
+tmp.some_file_name "w+" do |file|
+  file.write Random.rand(1000...9999)
+end
+
 tmp.some_file_name do |file|
-  file.write Random.rand(100...1000)
+  puts file.readline #> some random number
 end
 
 # reopen the new file is also simple
 tmp.some_file_name do |file|
 
   while line = file.gets
+    #> some random number same as above
     puts line
   end
-
-  file.write Random.rand(100...1000)
 
 end
 
 # you can set the file mod if you like, by default it's based on file e
 tmp.some_file_name "w+" do |file|
 
-  while line = file.gets
-    puts line
-  end
-  # totaly nothing writed out to console because the "w+"
+  puts file.readlines.inspect #> [] empty array because the file got w+ command
 
-  file.write "hello world!"
+  file.write "Hello world!"
 
 end
 
-puts tmp.some_file_name #> it's a string from the file we made
+tmp.some_file_name do |file|
+  puts file.gets.inspect #> "Hello world!"
+end
+
+puts tmp.some_file_name__path__
+
+puts tmp.some_file_name.inspect #> it's a string from the file we made

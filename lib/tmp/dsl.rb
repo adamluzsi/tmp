@@ -13,19 +13,15 @@ module TMP
     def method_missing( method, *args, &block )
 
       if method.to_s.reverse[0] == '='
+
         target_obj.__send__ :write, method.to_s.reverse.sub('=','').reverse, args.first
         return args.first
+
       else
 
         unless block.nil?
 
-          if File.exist? File.join( target_obj.folder_path, method.to_s )
-            args[0] ||= "r+"
-          else
-            args[0] ||= "w+"
-          end
-
-          File.open( File.join( target_obj.folder_path, method.to_s ), args[0] ,&block)
+          return target_obj.__send__ :block, method, *args, &block
 
         else
 
@@ -34,7 +30,6 @@ module TMP
           else
             return target_obj.__send__ :read, method
           end
-
 
         end
 
