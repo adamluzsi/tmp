@@ -30,13 +30,13 @@ The DSL will make easy the job on you but you can use the default methods alike:
     require 'tmp'
 
     #> you can use the __TMP__ / __tmp__ alias as well
-    tmp.hello = { hello: 'world'}
+    __tmp__.hello = { hello: 'world'}
 
     # defined variable
-    tmp.hello #> { hello: 'world'}
+    __tmp__.hello #> { hello: 'world'}
 
     # undefined variable
-    tmp.sup #> nil
+    __tmp__.sup #> nil
 
 ```
 

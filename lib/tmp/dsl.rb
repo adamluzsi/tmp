@@ -55,8 +55,6 @@ module TMP
 
     alias :__TMP__  :__tmp__
 
-    alias :tmp      :__tmp__
-
   end
 
 end
