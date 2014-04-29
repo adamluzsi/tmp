@@ -22,9 +22,12 @@ In the Examples i will use most likely the 'tmp' name, what is a syntax sugar
 The real object(module) being called all the time is the TMP::DSL
 The DSL will make easy the job on you but you can use the default methods alike:
 
-* TMP.write( file_name, object ) #> object
-* TMP.read( file_name )          #> object
-* TMP.path( file_name )          #> string
+* TMP.write( file_name, object )
+  * object
+* TMP.read( file_name )
+  * object
+* TMP.path( file_name )
+  * string
 
 ```ruby
 
