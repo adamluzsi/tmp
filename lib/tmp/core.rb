@@ -75,13 +75,38 @@ module TMP
 
     def block variable_name, *args, &block_obj
 
-      if File.exist? File.join( tmp_folder_path,variable_name.to_s )
-        args[0] ||= "r+"
-      else
-        args[0] ||= "w+"
+      tmp_folder_init
+
+      options = args.select{|e|(e.class <= ::Hash)}.reduce({},:merge!)
+      args.select!{|e|!(e.class <= ::Hash)}
+
+      options[:file_extension] ||= options[:extension] || options[:ext]
+      file_name = variable_name.to_s
+      options[:file_mod] ||= options[:mod] || args[0].class <= ::String ? args[0] : nil
+
+      unless options[:file_extension].nil?
+
+        while options[:file_extension][0] == '.'
+          options[:file_extension][0]= ''
+        end
+
+        file_name += ".#{options[:file_extension]}"
+
       end
 
-      return File.open( File.join( tmp_folder_path,variable_name.to_s ), args[0], &block_obj)
+      if File.exist?(File.join( tmp_folder_path, file_name ))
+        options[:file_mod] ||= "r+"
+      else
+        options[:file_mod] ||= "w+"
+      end
+
+      begin
+        return File.open( File.join( tmp_folder_path, file_name ), options[:file_mod], &block_obj )
+      rescue Errno::ENOENT
+        var_file= File.new( File.join( tmp_folder_path, file_name ), options[:file_mod])
+        block_obj.call(var_file) unless block_obj.nil?
+        var_file.close
+      end
 
     end
 
@@ -104,10 +129,22 @@ module TMP
 
     end
 
-    def path variable_name
+    def path variable_name,*args
+
+      options = args.select{|e|(e.class <= ::Hash)}.reduce({},:merge!)
+      args.select!{|e|!(e.class <= ::Hash)}
+
+      variable_name = variable_name.to_s
+      options[:file_extension] ||= options[:extension] || options[:ext]
+      unless options[:file_extension].nil?
+        while options[:file_extension][0] == '.'
+          options[:file_extension][0]= ''
+        end
+        variable_name += ".#{options[:file_extension]}"
+      end
 
       tmp_folder_init
-      path_to_file= File.join(tmp_folder_path,variable_name.to_s)
+      path_to_file= File.join( tmp_folder_path, variable_name )
       unless File.exist?(path_to_file)
         File.open( path_to_file ,"w") {|f| f.write(""); f.close }
       end
@@ -117,11 +154,12 @@ module TMP
 
     def purge_files
 
-      Dir.glob( File.join( tmp_folder_path,'**','*' ) ).each do |file_path|
+      Dir.glob( File.join( tmp_folder_path,'**','*' ) ).map do |file_path|
 
         begin
           File.delete file_path
-        rescue Errno::ENOENT
+        rescue Errno::ENOENT => ex
+          ex
         end
 
       end

@@ -26,7 +26,7 @@ module TMP
         else
 
           if method =~ /^\w+__path__$/
-            return target_obj.__send__ :path, method.to_s.sub!( /__path__$/,"" )
+            return target_obj.__send__ :path, method.to_s.sub!( /__path__$/,"" ),*args
           else
             return target_obj.__send__ :read, method
           end

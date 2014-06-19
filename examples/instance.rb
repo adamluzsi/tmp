@@ -18,5 +18,13 @@ tmp_instance.tmp_class_instance_object #> return the tmp_instance
 tmp_instance.tmp_class_instance_object.folder_path
 
 # Remember this instance use different folder thant the main TMP::DSL
-tmp.test.inspect  #> nil, because it was never used before
+__tmp__.test.inspect  #> nil, because it was never used before
                   #> the tmp method is same like invoke the TMP::DSL module
+
+tmp_instance.test_file do |file|
+  file.write "hello world!"
+end
+
+tmp_instance.test_file do |file|
+  file.read
+end

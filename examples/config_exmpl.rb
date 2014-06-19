@@ -16,8 +16,8 @@ puts "","default tmp folder:",
 TMP.folder_init #> || tmp_folder_init
 
 # or you can use syntax sugar!
-tmp.hello = { hello: 'world'}
+__tmp__.hello = { hello: 'world'}
 
 # defined variable
-puts tmp.hello #> { hello: 'world'}
+puts __tmp__.hello #> { hello: 'world'}
 
