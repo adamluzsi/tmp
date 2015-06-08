@@ -1,9 +1,12 @@
 #encoding: UTF-8
+module TMP
 
-require 'tmpdir'
+  require 'tmp/instance'
 
-require 'tmp/core'
-require 'tmp/sup'
+  require 'tmp/core'
+  require 'tmp/sup'
 
-require 'tmp/dsl'
-require 'tmp/init'
+  require 'tmp/dsl'
+  require 'tmp/init'
+
+end
