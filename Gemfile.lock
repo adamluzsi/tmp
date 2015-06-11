@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tmp (4.0.0.alpha)
+    tmp (4.0.0)
 
 GEM
   remote: http://rubygems.org/
